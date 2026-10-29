@@ -26,7 +26,7 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     number: 1,
     name: "El Perfil en Desarrollo",
     short: "Perfil en Desarrollo",
-    coords: "Bajo Liderazgo · Baja Visibilidad Digital",
+    coords: "Bajo Liderazgo · Bajo Posicionamiento",
     headline: "Estás construyendo las bases. Tu prioridad es la claridad de enfoque.",
     estado:
       "Te encuentras en una etapa donde estás construyendo las bases de tu carrera, empresa o servicio profesional. Sin embargo, experimentas la sensación de que cada avance requiere un esfuerzo desmedido. Tu día a día transcurre enfocado en responder a lo urgente y resolver la operativa inmediata, lo que te deja muy poco tiempo disponible para diseñar una estrategia de crecimiento a mediano plazo. Sientes que tu oferta aún se parece bastante a la de otros colegas de tu área y que no has logrado comunicar tu valor diferenciador con la contundencia que te gustaría.",
@@ -40,7 +40,7 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     costo:
       "Sin una propuesta de valor bien delimitada y sin una presencia visible en el mercado, la percepción externa tiende a tratarte como una opción intercambiable, lo que genera cansancio, desgaste y techos en tus ingresos.",
     diagnostico:
-      "Tu prioridad no es salir a publicar contenidos masivos en redes sociales sin una dirección definida. Lo que necesitas es claridad de enfoque. Debes concentrarte primero en fortalecer tu Liderazgo (El SER): definir exactamente a quién ayudas, cuál es tu propuesta de valor diferenciada y empezar a estructurar tus experiencias en un Método de trabajo ordenado.",
+      "Tu prioridad no es salir a publicar contenidos masivos en redes sociales sin una dirección definida. Lo que necesitas es claridad de enfoque. Debes concentrarte primero en fortalecer tu Liderazgo Referente: definir exactamente a quién ayudas, cuál es tu propuesta de valor diferenciada y empezar a estructurar tus experiencias en un Método de trabajo ordenado.",
     siguientePaso: "Test 2 · Liderazgo Referente (Los 9 Estadios)",
     secuencia: "Bases del Líder Referente",
     propuesta: "Test 1 Ampliado + Contenidos Base",
@@ -50,7 +50,7 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     number: 2,
     name: "El Perfil de Vitrina",
     short: "Perfil de Vitrina",
-    coords: "Bajo Liderazgo · Alta Visibilidad Digital",
+    coords: "Bajo Liderazgo · Alto Posicionamiento",
     headline: "Tienes atención. Ahora necesitas convertirla en autoridad real.",
     estado:
       "Posees un dinamismo sobresaliente y una enorme facilidad para conectar y estar presente en canales digitales. Tu nombre suena, generas alcance, la gente ve lo que haces y sabes cómo llamar la atención en plataformas como LinkedIn o Instagram. Sin embargo, internamente sientes una brecha incómoda entre esa exposición y los resultados reales de tu carrera o negocio: el volumen de miradas y clics no se está convirtiendo en contratos de alto valor, en el respeto de los líderes más experimentados de tu industria o en una reputación sólida a largo plazo.",
@@ -64,7 +64,7 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     costo:
       "Gastas una cantidad considerable de energía produciendo publicaciones para mantenerte vigente, sin construir un activo de reputación duradero ni un modelo de negocio que convierta esa atención en ingresos sostenibles.",
     diagnostico:
-      "Tu siguiente paso es evolucionar de la visibilidad superficial a la autoridad real. No necesitas buscar más seguidores ni publicar con mayor frecuencia. Tu verdadero trabajo consiste en consolidar tu Liderazgo (El SER): empaquetar tu conocimiento real en un Método sólido, perfeccionar tu presencia al hablar y estructurar tu propuesta para que esa atención se traduzca en contratos, confianza y respeto en tu sector.",
+      "Tu siguiente paso es evolucionar de la visibilidad superficial a la autoridad real. No necesitas buscar más seguidores ni publicar con mayor frecuencia. Tu verdadero trabajo consiste en consolidar tu Liderazgo Referente: empaquetar tu conocimiento real en un Método sólido, perfeccionar tu presencia al hablar y estructurar tu propuesta para que esa atención se traduzca en contratos, confianza y respeto en tu sector.",
     siguientePaso: "Test 2 · Liderazgo Referente (Los 9 Estadios)",
     secuencia: "De la Visibilidad a la Autoridad",
     propuesta: "Test 3 (Referente Digital)",
@@ -74,7 +74,7 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     number: 3,
     name: "El Experto Silencioso",
     short: "Experto Silencioso",
-    coords: "Alto Liderazgo · Baja Visibilidad Digital",
+    coords: "Alto Liderazgo · Bajo Posicionamiento",
     headline: "Tienes el fondo y la sustancia. Te falta la arquitectura de visibilidad.",
     estado:
       "Eres una verdadera potencia de conocimiento, ética y resultados comprobados. Llevas años entregando un trabajo impecable y quienes han tenido la oportunidad de colaborar directamente contigo reconocen tu enorme capacidad y criterio. Sin embargo, has asumido sin darte cuenta el mito del trabajo silencioso, creyendo que \"entregar buenos resultados es suficiente para destacar\". Mientras trabajas duro en silencio, ves con frustración cómo otros profesionales con la mitad de tu trayectoria o talento se quedan con las mejores oportunidades, clientes y escenarios simplemente porque sí comunican su valor.",
@@ -98,12 +98,12 @@ export const QUADRANTS: Record<QuadrantId, QuadrantContent> = {
     number: 4,
     name: "El Líder Referente",
     short: "Líder Referente",
-    coords: "Alto Liderazgo · Alta Visibilidad Digital",
+    coords: "Alto Liderazgo · Alto Posicionamiento",
     headline: "Has alcanzado el equilibrio. Tu enfoque ahora es la trascendencia y la escala.",
     estado:
       "Has alcanzado el equilibrio óptimo del Método REFERENTE®: tu profunda capacidad como profesional, directivo o empresario está respaldada por una presencia digital estratégica e impecable. No necesitas salir a buscar oportunidades a puerta fría; las mejores propuestas de clientes, alianzas comerciales, talento de alto nivel y proyectos de proyección llegan a ti atraídas por el peso de tu reputación. Eres una voz escuchada, respetada y valorada en tu industria.",
     sintomas: [
-      "Tu nombre, tu marca o tu metodología son citados de forma natural por colegas, clientes y herramientas de Inteligencia Artificial como referentes.",
+      "Tu nombre, tu marca o tu metodología son citados de forma natural por colegas, clientes y herramientas de Inteligencia Artificial como Referentes.",
       "Cuentas con un Método propio consolidado que te permite delegar la operación diaria y concentrarte en la visión, la estrategia y el crecimiento.",
       "La conversación alrededor de tu marca genera confianza inmediata, lo que facilita negociaciones de alto nivel y ciclos de venta más cortos.",
       "Tu comunicación inspira a otros profesionales y marca la pauta sobre las tendencias y el futuro de tu área de especialidad.",
@@ -125,23 +125,23 @@ export function brechaPrioritaria(q: QuadrantId, ser: number, eco: number): { ti
   switch (q) {
     case "Perfil_Desarrollo":
       return {
-        titulo: "Prioridad: Liderazgo y Criterio (El SER)",
-        texto: `Ambos ejes están por debajo del punto de consolidación (SER ${ser}/100 · ECOSISTEMA ${eco}/100). Antes de ganar visibilidad, necesitas una propuesta de valor clara y un método ordenado: sin esa base, cualquier exposición se diluye.`,
+        titulo: "Prioridad: Liderazgo y Criterio #LiderazgoReferente",
+        texto: `Ambos ejes están por debajo del punto de consolidación (Liderazgo y Criterio ${ser}/100 · Posicionamiento ${eco}/100). Antes de ganar visibilidad, necesitas una propuesta de valor clara y un método ordenado: sin esa base, cualquier exposición se diluye.`,
       };
     case "Perfil_Vitrina":
       return {
-        titulo: "Prioridad: Liderazgo y Criterio (El SER)",
-        texto: `Tu Ecosistema Digital (${eco}/100) supera a tu eje de Liderazgo (${ser}/100) por ${diff} puntos. La atención ya existe; el trabajo está en darle sustancia, estructura y aplomo para que se convierta en autoridad y contratos.`,
+        titulo: "Prioridad: Liderazgo y Criterio #LiderazgoReferente",
+        texto: `Tu Posicionamiento (${eco}/100) supera a tu Liderazgo y Criterio (${ser}/100) por ${diff} puntos. La atención ya existe; el trabajo está en darle sustancia, estructura y aplomo para que se convierta en autoridad y contratos.`,
       };
     case "Experto_Silencioso":
       return {
-        titulo: "Prioridad: Posicionamiento y Ecosistema Digital",
-        texto: `Tu Liderazgo (${ser}/100) supera a tu Ecosistema Digital (${eco}/100) por ${diff} puntos. El criterio ya está construido; ahora necesita una arquitectura que lo haga visible, encontrable en Google e IA y atractivo para las oportunidades correctas.`,
+        titulo: "Prioridad: Posicionamiento #ReferenteDigital",
+        texto: `Tu Liderazgo y Criterio (${ser}/100) supera a tu Posicionamiento (${eco}/100) por ${diff} puntos. El criterio ya está construido; ahora necesita una arquitectura que lo haga visible, encontrable en Google e IA y atractivo para las oportunidades correctas.`,
       };
     case "Lider_Referente":
       return {
         titulo: "Prioridad: Escala y legado",
-        texto: `Ambos ejes están consolidados (SER ${ser}/100 · ECOSISTEMA ${eco}/100). Tu brecha ya no es de base, sino de escala: sistematizar tu pensamiento, multiplicar canales de impacto y formar a otros líderes.`,
+        texto: `Ambos ejes están consolidados (Liderazgo y Criterio ${ser}/100 · Posicionamiento ${eco}/100). Tu brecha ya no es de base, sino de escala: sistematizar tu pensamiento, multiplicar canales de impacto y formar a otros líderes.`,
       };
   }
 }
@@ -186,10 +186,10 @@ export const SERVICIOS = [
   {
     titulo: "Taller ADN Corporativo y Consultoría",
     texto:
-      "Programa para equipos directivos y fundadores (Founder-Led Marketing) que unifica la narrativa de la empresa con la presencia de sus líderes visibles.",
+      "Programa para equipos directivos y fundadores que unifica la narrativa de la empresa con la presencia de sus líderes visibles.",
   },
   {
     titulo: "Conferencias de impacto",
-    texto: "\"Ser Referente\", \"Algoritmo\" y \"La IA: El Nuevo Buscador\", para convenciones, eventos del sector y programas ejecutivos.",
+    texto: "\"Ser Referente\", \"Algoritmo\" y \"Referentes Digitales\", para convenciones, eventos del sector y programas ejecutivos.",
   },
 ];

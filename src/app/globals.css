@@ -240,3 +240,10 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
   .actions .btn { width: 100%; }
   .result-actions .btn { width: 100%; }
 }
+
+/* Semáforo de puntos altos y oportunidades */
+.panel ul:has(.sem) { list-style: none; padding-left: 0; }
+.sem { display: flex; align-items: center; gap: 10px; }
+.sem-dot { flex: none; width: 12px; height: 12px; border-radius: 50%; }
+.sem-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 18px; font-size: 12px; color: var(--texto-suave); }
+.sem-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }

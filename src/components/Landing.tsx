@@ -59,14 +59,14 @@ export default function Landing({ onStart }: { onStart: () => void }) {
           </p>
           <div className="equation">
             <div className="eq-box">
-              <p className="eyebrow salvia">Eje 1</p>
-              <h3>Liderazgo Real · El SER</h3>
+              <p className="eyebrow salvia">Eje X · #LiderazgoReferente</p>
+              <h3>Liderazgo Real</h3>
               <p>Criterio, presencia ejecutiva, propuesta de valor y capacidad de guiar personas.</p>
             </div>
             <div className="eq-op">+</div>
             <div className="eq-box">
-              <p className="eyebrow salvia">Eje 2</p>
-              <h3>Visibilidad Estratégica · El ECOSISTEMA</h3>
+              <p className="eyebrow salvia">Eje Y · #ReferenteDigital</p>
+              <h3>Visibilidad Estratégica</h3>
               <p>Perfiles, método propio, contenido y encontrabilidad en Google e IA.</p>
             </div>
             <div className="eq-op">=</div>
@@ -104,7 +104,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
               <p className="eyebrow salvia">03 / Lo que vas a descubrir</p>
               <h2>¿En cuál de los 4 perfiles te encuentras hoy?</h2>
               <p className="lead" style={{ marginTop: 20 }}>
-                Al terminar recibirás tu ubicación en la Matriz Dual de Posicionamiento, la lectura de tu perfil, tu
+                Al terminar recibirás tu ubicación en la Matriz de Posicionamiento Referente, la lectura de tu perfil, tu
                 brecha prioritaria y una ruta de evolución personalizada.
               </p>
               <div style={{ marginTop: 32 }}>{cta}</div>

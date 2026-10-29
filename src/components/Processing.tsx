@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 
 const STEPS = [
   "Procesando tus 20 respuestas",
-  "Analizando tu Eje de Liderazgo y Criterio (El SER)",
-  "Evaluando tu Ecosistema Digital y visibilidad en Google e IA",
-  "Ubicándote en la Matriz Dual de Posicionamiento",
+  "Analizando tu Eje X: Liderazgo y Criterio",
+  "Evaluando tu Eje Y: Posicionamiento y visibilidad en Google e IA",
+  "Ubicándote en la Matriz de Posicionamiento Referente",
   "Preparando tu informe ejecutivo personalizado",
 ];
 

@@ -6,7 +6,10 @@ import type { SavedResult } from "./Funnel";
 import type { LeadInput } from "@/lib/form-options";
 import { QUADRANTS, brechaPrioritaria } from "@/lib/content";
 import { rankItems } from "@/lib/scoring";
-import { LINKS } from "@/lib/config";
+import { SCALE } from "@/lib/questions";
+
+const scaleOf = (v: number) => SCALE.find((x) => x.value === v);
+import { LINKS, TEST_URL_LABEL, axisLabel } from "@/lib/config";
 
 interface Props {
   lead: LeadInput;
@@ -60,12 +63,12 @@ export default function Result({ lead, result, onRestart }: Props) {
     setBusy("card");
     try {
       const { buildShareCard } = await import("@/lib/share-card");
-      const blob = await buildShareCard(scores, window.location.origin);
+      const blob = await buildShareCard(scores);
       const file = new File([blob], `mi-resultado-referente.png`, { type: "image/png" });
       const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
       if (nav.canShare?.({ files: [file] }) && window.matchMedia("(pointer: coarse)").matches) {
         await navigator
-          .share({ files: [file], title: "Mi resultado", text: `Mi perfil: ${q.name}. ¿Y el tuyo? ${window.location.origin}` })
+          .share({ files: [file], title: "Mi resultado", text: `Mi perfil: ${q.name}. ¿Y el tuyo? https://${TEST_URL_LABEL}` })
           .catch(() => undefined);
       } else {
         download(blob, file.name);
@@ -93,8 +96,8 @@ export default function Result({ lead, result, onRestart }: Props) {
 
           <div className="scores">
             {[
-              { label: "Liderazgo y Criterio (El SER)", v: scores.ser },
-              { label: "Ecosistema Digital (Google / IA)", v: scores.eco },
+              { label: axisLabel("x"), v: scores.ser },
+              { label: axisLabel("y"), v: scores.eco },
             ].map((r) => (
               <div className="score-row" key={r.label}>
                 <span>{r.label}</span>
@@ -149,7 +152,10 @@ export default function Result({ lead, result, onRestart }: Props) {
             <p className="eyebrow">Tus puntos más altos</p>
             <ul>
               {strongest.map((i) => (
-                <li key={i.id}>{i.title}</li>
+                <li key={i.id} className="sem">
+                  <span className="sem-dot" style={{ background: scaleOf(i.value)?.color }} title={scaleOf(i.value)?.label} />
+                  {i.title}
+                </li>
               ))}
             </ul>
             <p className="eyebrow" style={{ marginTop: 20 }}>
@@ -157,9 +163,20 @@ export default function Result({ lead, result, onRestart }: Props) {
             </p>
             <ul>
               {weakest.map((i) => (
-                <li key={i.id}>{i.title}</li>
+                <li key={i.id} className="sem">
+                  <span className="sem-dot" style={{ background: scaleOf(i.value)?.color }} title={scaleOf(i.value)?.label} />
+                  {i.title}
+                </li>
               ))}
             </ul>
+            <div className="sem-legend">
+              {SCALE.map((x) => (
+                <span key={x.value}>
+                  <i style={{ background: x.color }} />
+                  {x.label}
+                </span>
+              ))}
+            </div>
           </div>
           <a className="btn btn-ghost" href={LINKS.agendar} target="_blank" rel="noopener">
             Agendar una sesión estratégica

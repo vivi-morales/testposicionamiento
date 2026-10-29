@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 // Informe ejecutivo de 6 páginas (Documento 3), con el sistema visual del manual de marca.
-import { Circle, Document, Image, Line, Link, Page, Rect, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
+import { Circle, Document, Image, Line, Link, Page, Polygon, Rect, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
 import type { LeadInput } from "@/lib/form-options";
 import { desafioOf, rolLabel } from "@/lib/form-options";
 import { DESAFIO_LECTURA, EVIDENCIA, QUADRANTS, SERVICIOS, brechaPrioritaria } from "@/lib/content";
 import { rankItems, type Answers, type Scores } from "@/lib/scoring";
-import { MATRIX_QUADS, clampPoint } from "@/lib/matrix";
-import { HANDLE, LINKS, SITE_LABEL } from "@/lib/config";
+import { HERE_TEXT, MATRIX_QUADS, clampPoint, hereLabel } from "@/lib/matrix";
+import { AXES, HANDLE, LINKS, SITE_LABEL, axisLabel } from "@/lib/config";
 import { SCALE } from "@/lib/questions";
 
 const C = {
@@ -24,12 +24,12 @@ const C = {
 };
 
 const s = StyleSheet.create({
-  page: { fontFamily: "Poppins", fontSize: 10, lineHeight: 1.5, paddingTop: 54, paddingBottom: 60, paddingHorizontal: 50 },
+  page: { fontFamily: "Poppins", fontSize: 10, lineHeight: 1.5, paddingTop: 54, paddingBottom: 78, paddingHorizontal: 50 },
   dark: { backgroundColor: C.carbon, color: C.blanco },
   mint: { backgroundColor: C.menta, color: C.carbon },
   light: { backgroundColor: C.hueso, color: C.carbon },
   header: { position: "absolute", top: 24, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", fontSize: 7, letterSpacing: 1.4, fontWeight: 600 },
-  footer: { position: "absolute", bottom: 24, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", fontSize: 7 },
+  footer: { position: "absolute", bottom: 22, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", borderTopWidth: 1, paddingTop: 9 },
   eyebrow: { fontSize: 8, fontWeight: 600, letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 8 },
   h1: { fontSize: 30, fontWeight: 700, lineHeight: 1.12 },
   h2: { fontSize: 22, fontWeight: 700, lineHeight: 1.15, marginBottom: 10 },
@@ -61,11 +61,14 @@ function Header({ n, color }: { n: number; color: string }) {
   );
 }
 
-function Footer({ color }: { color: string }) {
+function Footer({ color, accent, line }: { color: string; accent: string; line: string }) {
   return (
-    <View style={[s.footer, { color }]} fixed>
-      <Text style={{ fontWeight: 600 }}>Copyright © {new Date().getFullYear()} Vivi Morales Villa</Text>
-      <Link src={LINKS.sitio} style={{ color, textDecoration: "none" }}>
+    <View style={[s.footer, { color, borderTopColor: line }]} fixed>
+      <View>
+        <Text style={{ fontSize: 12, fontWeight: 700, color: accent, letterSpacing: 0.4 }}>{HANDLE}</Text>
+        <Text style={{ fontSize: 6.5, marginTop: 1 }}>Copyright © {new Date().getFullYear()} Vivi Morales Villa</Text>
+      </View>
+      <Link src={LINKS.sitio} style={{ fontSize: 12, fontWeight: 700, color: accent, textDecoration: "none" }}>
         {SITE_LABEL}
       </Link>
     </View>
@@ -91,6 +94,7 @@ function MatrixPdf({ scores }: { scores: Scores }) {
   const py = (y: number) => T + S - (y / 100) * S;
   const cx = px(clampPoint(scores.ser));
   const cy = py(clampPoint(scores.eco));
+  const here = hereLabel(cx, cy, scores.ser, scores.eco, 76, 17, 11, 8, S / 100);
   return (
     <Svg width={346} height={346} viewBox="0 0 346 346">
       {MATRIX_QUADS.map((q) => {
@@ -100,6 +104,21 @@ function MatrixPdf({ scores }: { scores: Scores }) {
           <Rect key={q.id} x={x + 3} y={y + 3} width={S / 2 - 6} height={S / 2 - 6} rx={8} fill={active ? C.menta : C.carbon3} />
         );
       })}
+      <Line x1={cx} y1={cy} x2={cx} y2={py(0)} stroke={C.salvia} strokeWidth={1} strokeDasharray="3,3" />
+      <Line x1={px(0)} y1={cy} x2={cx} y2={cy} stroke={C.salvia} strokeWidth={1} strokeDasharray="3,3" />
+      {MATRIX_QUADS.map((q) =>
+        q.label.map((t, i) => (
+          // Fondo del color de la celda para que la guía punteada pase por detrás del texto
+          <Rect
+            key={q.id + t + "bg"}
+            x={px(q.x0) + S / 4 - t.length * 3.2}
+            y={py(q.y0 + 50) + 18 + i * 12}
+            width={t.length * 6.4}
+            height={12}
+            fill={q.id === scores.quadrant ? C.menta : C.carbon3}
+          />
+        )),
+      )}
       {MATRIX_QUADS.map((q) =>
         q.label.map((t, i) => (
           <Text
@@ -116,15 +135,19 @@ function MatrixPdf({ scores }: { scores: Scores }) {
       )}
       <Line x1={px(0)} y1={py(0)} x2={px(100)} y2={py(0)} stroke={C.gris} strokeWidth={1} />
       <Line x1={px(0)} y1={py(0)} x2={px(0)} y2={py(100)} stroke={C.gris} strokeWidth={1} />
-      <Line x1={cx} y1={cy} x2={cx} y2={py(0)} stroke={C.salvia} strokeWidth={1} strokeDasharray="3,3" />
-      <Line x1={px(0)} y1={cy} x2={cx} y2={cy} stroke={C.salvia} strokeWidth={1} strokeDasharray="3,3" />
       <Circle cx={cx} cy={cy} r={8} fill={C.carbon} stroke={C.blanco} strokeWidth={2.5} />
       <Circle cx={cx} cy={cy} r={3} fill={C.verde} />
+      <Line x1={here.start[0]} y1={here.start[1]} x2={here.base[0]} y2={here.base[1]} stroke={C.carbon} strokeWidth={1.5} />
+      <Polygon points={`${here.tip[0]},${here.tip[1]} ${here.head1[0]},${here.head1[1]} ${here.head2[0]},${here.head2[1]}`} fill={C.carbon} />
+      <Rect x={here.x} y={here.y} width={here.w} height={here.h} rx={8} fill={C.carbon} />
+      <Text x={here.cxText} y={here.y + 11.5} textAnchor="middle" style={{ fontSize: 8, fontWeight: 700, fontFamily: "Poppins" }} fill={C.menta}>
+        {HERE_TEXT}
+      </Text>
       <Text x={px(50)} y={336} textAnchor="middle" style={{ fontSize: 8, fontFamily: "Poppins" }} fill={C.suave}>
-        LIDERAZGO Y CRITERIO (EL SER)
+        {`${AXES.x.nombre} ${AXES.x.tag}`.toUpperCase()}
       </Text>
       <Text x={12} y={py(50)} textAnchor="middle" transform={`rotate(-90, 12, ${py(50)})`} style={{ fontSize: 8, fontFamily: "Poppins" }} fill={C.suave}>
-        ECOSISTEMA DIGITAL
+        {`${AXES.y.nombre} ${AXES.y.tag}`.toUpperCase()}
       </Text>
     </Svg>
   );
@@ -154,8 +177,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
   const { strongest, weakest } = rankItems(answers);
   const img = (p: string) => `${origin}${p}`;
   const fecha = date.toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
-  const recommendsTest3 = scores.quadrant === "Experto_Silencioso" || scores.quadrant === "Lider_Referente";
-  const scaleLabel = (v: number) => SCALE.find((x) => x.value === v)?.label ?? "";
+  const scaleColor = (v: number) => SCALE.find((x) => x.value === v)?.color ?? C.gris;
 
   const datos: [string, string][] = [
     ["Evaluado/a", lead.nombre],
@@ -172,18 +194,20 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
       <Page size="A4" style={[s.page, s.dark, { paddingTop: 40 }]}>
         <View style={[s.row, { justifyContent: "space-between", alignItems: "center" }]}>
           <Image src={img("/brand/logo-wordmark-blanco.png")} style={{ width: 150 }} />
-          <Text style={{ fontSize: 8 }}>{SITE_LABEL}</Text>
+          <Link src={LINKS.sitio} style={{ fontSize: 13, fontWeight: 700, color: C.blanco, textDecoration: "none" }}>{SITE_LABEL}</Link>
         </View>
 
         <View style={{ marginTop: 110 }}>
           <Text style={[s.eyebrow, { color: C.menta }]}>Informe ejecutivo de diagnóstico</Text>
           <Text style={[s.h1, { fontSize: 32 }]}>Descubre tu Nivel de</Text>
           <Text style={[s.h1, { fontSize: 32 }]}>Posicionamiento y Liderazgo</Text>
-          <View style={[s.row, { marginTop: 6 }]}>
-            <Text style={[s.h1, { fontSize: 32, backgroundColor: C.salvia, paddingHorizontal: 8, borderRadius: 3 }]}>Referente</Text>
+          <View style={[s.row, { marginTop: 8 }]}>
+            <View style={{ backgroundColor: C.menta, borderRadius: 4, paddingHorizontal: 14, paddingTop: 1, paddingBottom: 8 }}>
+              <Text style={[s.h1, { fontSize: 32, color: C.carbon, lineHeight: 1.1 }]}>Referente</Text>
+            </View>
           </View>
           <Text style={{ fontSize: 11, marginTop: 16, color: C.suave, width: 380 }}>
-            Evaluación de Madurez Profesional: integración de Liderazgo Personal (El SER) y Visibilidad Digital (El ECOSISTEMA).
+            Evaluación de Madurez Profesional: integración de Liderazgo y Criterio #LiderazgoReferente y Posicionamiento #ReferenteDigital.
           </Text>
         </View>
 
@@ -201,7 +225,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             <Image src={img("/brand/monograma-blanco.png")} style={{ width: 70, marginBottom: 8 }} />
             <Text style={{ fontSize: 8, color: C.suave }}>Método REFERENTE® por Vivi Morales Villa</Text>
           </View>
-          <Text style={{ fontSize: 8, color: C.menta }}>{HANDLE}</Text>
+          <Text style={{ fontSize: 15, fontWeight: 700, color: C.menta }}>{HANDLE}</Text>
         </View>
         <Image src={img("/brand/logo-wordmark-blanco.png")} style={{ position: "absolute", left: -10, right: -10, bottom: -14, opacity: 0.05 }} />
       </Page>
@@ -219,12 +243,12 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
         <View style={[s.row, { marginTop: 14, alignItems: "stretch" }]}>
           <View style={[s.box, { backgroundColor: C.blanco, flex: 1 }]}>
             <Text style={{ fontWeight: 700, fontSize: 10.5 }}>Liderazgo Real</Text>
-            <Text style={{ fontSize: 9, color: C.gris }}>El SER</Text>
+            <Text style={{ fontSize: 9, color: C.gris }}>{AXES.x.tag}</Text>
           </View>
           <Text style={{ fontSize: 20, fontWeight: 300, color: C.salviaOscuro, alignSelf: "center", marginHorizontal: 10 }}>+</Text>
           <View style={[s.box, { backgroundColor: C.blanco, flex: 1 }]}>
             <Text style={{ fontWeight: 700, fontSize: 10.5 }}>Visibilidad Estratégica</Text>
-            <Text style={{ fontSize: 9, color: C.gris }}>El ECOSISTEMA</Text>
+            <Text style={{ fontSize: 9, color: C.gris }}>{AXES.y.tag}</Text>
           </View>
           <Text style={{ fontSize: 20, fontWeight: 300, color: C.salviaOscuro, alignSelf: "center", marginHorizontal: 10 }}>=</Text>
           <View style={[s.box, { backgroundColor: C.carbon, flex: 1 }]}>
@@ -236,13 +260,13 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
         {[
           {
             n: "01",
-            t: "Eje X · Liderazgo y Criterio (El SER)",
-            d: "Evalúa la profundidad de tu visión, tu capacidad de comunicación, tu autoridad personal y tu habilidad para delegar y tomar decisiones estratégicas, a la luz de los 9 Estadios del Liderazgo Referente.",
+            t: axisLabel("x"),
+            d: "Evalúa la profundidad de tu visión, tu capacidad de comunicación, tu autoridad personal y tu habilidad para delegar y tomar decisiones estratégicas, con base en los 9 Estadios del Liderazgo Referente.",
           },
           {
             n: "02",
-            t: "Eje Y · Posicionamiento y Ecosistema Digital",
-            d: "Mide la estructura de tu huella digital, la claridad de tu Método propio, la optimización de tus perfiles profesionales y tu nivel de visibilidad en buscadores e Inteligencia Artificial, a la luz de los 5 Ejes del Posicionamiento.",
+            t: axisLabel("y"),
+            d: "Mide la estructura de tu huella digital, la claridad de tu Método propio, la optimización de tus perfiles profesionales y tu nivel de visibilidad en buscadores e Inteligencia Artificial, con base en los 5 Ejes del Posicionamiento Referente.",
           },
         ].map((x) => (
           <View key={x.n} style={[s.row, { marginTop: 22 }]} wrap={false}>
@@ -258,7 +282,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
           <Text style={[s.eyebrow, { color: C.salviaOscuro, marginBottom: 4 }]}>Escala de medición</Text>
           <Text>
             Cada eje se evalúa con 10 preguntas y se expresa de 0 a 100 puntos. El punto de corte estratégico (50/100) separa
-            el nivel inicial e intermedio del nivel consolidado y te ubica en uno de los cuatro cuadrantes de la Matriz Dual.
+            el nivel inicial e intermedio del nivel consolidado y te ubica en uno de los cuatro cuadrantes de la Matriz de Posicionamiento Referente.
           </Text>
         </View>
 
@@ -271,22 +295,22 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             </View>
           ))}
         </View>
-        <Footer color={C.salviaOscuro} />
+        <Footer color={C.salviaOscuro} accent={C.carbon} line="#B7E3C2" />
       </Page>
 
-      {/* Página 3 · Matriz Dual */}
+      {/* Página 3 · Matriz de Posicionamiento Referente */}
       <Page size="A4" style={[s.page, s.dark]}>
         <Header n={3} color={C.salvia} />
         <Text style={[s.eyebrow, { color: C.menta }]}>Visualización del diagnóstico</Text>
-        <Text style={s.h2}>Tu ubicación en la Matriz Dual de Posicionamiento</Text>
+        <Text style={s.h2}>Tu ubicación en la Matriz de Posicionamiento Referente</Text>
         <View style={{ alignItems: "center", marginTop: 10, marginBottom: 18 }}>
           <MatrixPdf scores={scores} />
         </View>
         <View style={[s.row, { alignItems: "stretch" }]}>
           <View style={{ flex: 1, marginRight: 20 }}>
-            <ScoreBar label="Eje X · Liderazgo y Criterio (El SER)" value={scores.ser} />
-            <ScoreBar label="Eje Y · Ecosistema Digital (Google / IA)" value={scores.eco} />
-            <ScoreBar label="Índice global de posicionamiento" value={scores.total} />
+            <ScoreBar label={axisLabel("x")} value={scores.ser} />
+            <ScoreBar label={axisLabel("y")} value={scores.eco} />
+            <ScoreBar label="Índice global de posicionamiento Referente" value={scores.total} />
           </View>
           <View style={[s.box, { backgroundColor: C.menta, color: C.carbon, width: 200, justifyContent: "center" }]}>
             <Text style={[s.eyebrow, { color: C.salviaOscuro }]}>Cuadrante {q.number} de 4</Text>
@@ -294,7 +318,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             <Text style={{ fontSize: 8.5, marginTop: 8 }}>{q.coords}</Text>
           </View>
         </View>
-        <Footer color={C.salvia} />
+        <Footer color={C.suave} accent={C.menta} line={C.carbon3} />
       </Page>
 
       {/* Página 4 · Diagnóstico profundo */}
@@ -325,7 +349,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             <Text style={{ fontSize: 9 }}>{q.diagnostico}</Text>
           </View>
         </View>
-        <Footer color={C.salvia} />
+        <Footer color={C.gris} accent={C.carbon} line="#DCDCD6" />
       </Page>
 
       {/* Página 5 · Recomendaciones y ruta */}
@@ -355,37 +379,26 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             <View key={col.t} style={{ flex: 1, marginLeft: i ? 16 : 0 }}>
               <Text style={[s.eyebrow, { color: C.menta }]}>{col.t}</Text>
               {col.items.map((it) => (
-                <View key={it.id} style={[s.row, { justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: C.carbon3, paddingVertical: 5 }]}>
+                <View key={it.id} style={[s.row, { justifyContent: "space-between", alignItems: "center", borderBottomWidth: 1, borderBottomColor: C.carbon3, paddingVertical: 5 }]}>
                   <Text style={{ fontSize: 9, flex: 1 }}>{it.title}</Text>
-                  <Text style={{ fontSize: 8, color: C.salvia, marginLeft: 6 }}>{scaleLabel(it.value)}</Text>
+                  <View style={{ width: 9, height: 9, borderRadius: 4.5, backgroundColor: scaleColor(it.value), marginLeft: 8 }} />
                 </View>
               ))}
             </View>
           ))}
         </View>
 
-        <Text style={[s.eyebrow, { color: C.salvia, marginTop: 20 }]}>Ruta de diagnósticos profundos</Text>
-        <View style={[s.row, { alignItems: "stretch" }]}>
-          {[
-            { t: "Test 2 · Liderazgo Referente", sub: "Los 9 Estadios del Liderazgo", d: "Para definir tu propuesta de valor, empaquetar tu experiencia y ganar aplomo directivo.", link: LINKS.test2, rec: !recommendsTest3 },
-            { t: "Test 3 · Referente Digital", sub: "Los 5 Ejes del Posicionamiento", d: "Para diseñar la arquitectura de tu posicionamiento en LinkedIn, Google e IA.", link: LINKS.test3, rec: recommendsTest3 },
-          ].map((t, i) => (
-            <View key={t.t} style={[s.box, { flex: 1, marginLeft: i ? 10 : 0, backgroundColor: t.rec ? C.menta : C.carbon2, color: t.rec ? C.carbon : C.blanco }]}>
-              <Text style={{ fontSize: 7, fontWeight: 700, letterSpacing: 1.2, color: t.rec ? C.salviaOscuro : C.salvia, marginBottom: 4 }}>
-                {t.rec ? "RECOMENDADO PARA TI" : "COMPLEMENTARIO"}
-              </Text>
-              <Text style={s.h3}>{t.t}</Text>
-              <Text style={{ fontSize: 8.5, marginBottom: 4, color: t.rec ? C.gris : C.suave }}>{t.sub}</Text>
-              <Text style={{ fontSize: 8.5, marginBottom: 10 }}>{t.d}</Text>
-              <Link src={t.link} style={[s.btn, t.rec ? { backgroundColor: C.carbon, color: C.blanco } : {}]}>
-                Conocer el test
-              </Link>
+        <View style={[s.row, { marginTop: 10, alignItems: "center" }]}>
+          {SCALE.map((x) => (
+            <View key={x.value} style={[s.row, { alignItems: "center", marginRight: 14 }]}>
+              <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: x.color, marginRight: 4 }} />
+              <Text style={{ fontSize: 7.5, color: C.suave }}>{x.label}</Text>
             </View>
           ))}
         </View>
 
-        <View style={[s.box, { borderWidth: 1, borderColor: C.carbon3, marginTop: 12 }]}>
-          <Text style={[s.h3, { fontSize: 10.5 }]}>Para equipos y organizaciones</Text>
+        <View style={[s.box, { borderWidth: 1, borderColor: C.carbon3, marginTop: 22 }]}>
+          <Text style={[s.h3, { fontSize: 10.5 }]}>¿Quieres llevar esta evaluación a un nivel más profundo con tu equipo de trabajo u organización?</Text>
           <Text style={{ fontSize: 8.5, color: C.suave }}>
             Evaluación del índice de visibilidad para comités directivos y equipos de trabajo.{" "}
             <Link src={LINKS.equipos} style={{ color: C.menta }}>
@@ -393,7 +406,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             </Link>
           </Text>
         </View>
-        <Footer color={C.salvia} />
+        <Footer color={C.suave} accent={C.menta} line={C.carbon3} />
       </Page>
 
       {/* Página 6 · Plan de acción y CTA */}
@@ -403,8 +416,8 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
         <Text style={s.h2}>Tus próximos 3 pasos</Text>
 
         {[
-          { n: "01", t: "Guarda y comparte tu resultado", d: "Comparte tu tarjeta de resultado con colegas y tu equipo: el posicionamiento empieza por ponerle nombre a tu momento actual." },
-          { n: "02", t: "Profundiza en tu dimensión prioritaria", d: `${q.siguientePaso}: un diagnóstico detallado con plan de acción paso a paso.` },
+          { n: "01", t: "Guarda y comparte tu resultado", d: "Comparte tu tarjeta de resultado con colegas y tu equipo: el posicionamiento empieza por reconocer e identificar tu momento actual." },
+          { n: "02", t: "Profundiza en tu dimensión prioritaria", d: `Concentra tu energía en ${brecha.titulo.replace("Prioridad: ", "")}: con un acompañamiento personalizado, este diagnóstico se convierte en un plan de acción concreto para tu siguiente nivel.` },
           { n: "03", t: "Agenda una sesión estratégica", d: "Conversa con Vivi Morales Villa sobre tu resultado, o conoce los programas y conferencias del Método REFERENTE®." },
         ].map((x) => (
           <View key={x.n} style={[s.row, { marginTop: 12, alignItems: "flex-start" }]} wrap={false}>
@@ -419,9 +432,6 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
         <View style={[s.row, { marginTop: 18 }]}>
           <Link src={LINKS.agendar} style={[s.btn, { backgroundColor: C.carbon, color: C.blanco, flex: 1, marginRight: 8 }]}>
             Agendar sesión estratégica
-          </Link>
-          <Link src={recommendsTest3 ? LINKS.test3 : LINKS.test2} style={[s.btn, { flex: 1, marginRight: 8 }]}>
-            {recommendsTest3 ? "Hacer el Test 3" : "Hacer el Test 2"}
           </Link>
           <Link src={LINKS.programas} style={[s.btn, { backgroundColor: C.blanco, flex: 1, borderWidth: 1, borderColor: "#dcdcd6" }]}>
             Programas y conferencias
@@ -445,7 +455,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
           </View>
           <Image src={img("/photos/vivi-editorial.png")} style={{ width: 150, objectFit: "cover", objectPosition: "top" }} />
         </View>
-        <Footer color={C.salvia} />
+        <Footer color={C.gris} accent={C.carbon} line="#DCDCD6" />
       </Page>
     </Document>
   );

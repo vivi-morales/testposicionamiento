@@ -10,14 +10,14 @@ export interface Question {
 }
 
 export const SCALE = [
-  { value: 1, label: "Casi nunca" },
-  { value: 2, label: "A veces" },
-  { value: 3, label: "Frecuentemente" },
-  { value: 4, label: "Siempre" },
+  { value: 1, label: "Casi nunca", color: "#E5484D" },
+  { value: 2, label: "A veces", color: "#F5A524" },
+  { value: 3, label: "Frecuentemente", color: "#B5E853" },
+  { value: 4, label: "Siempre", color: "#2FBF71" },
 ] as const;
 
 export const QUESTIONS: Question[] = [
-  // Eje 1: Liderazgo y Criterio (El SER)
+  // Eje X: Liderazgo y Criterio #LiderazgoReferente
   {
     id: "1.1",
     axis: "ser",
@@ -78,7 +78,7 @@ export const QUESTIONS: Question[] = [
     title: "Conexión humana y empatía comercial",
     text: "En tus conversaciones de negocio o trabajo, ¿logras conectar de manera auténtica con las necesidades e intereses reales de la otra persona desde el primer momento?",
   },
-  // Eje 2: Posicionamiento y Ecosistema Digital (El ECOSISTEMA)
+  // Eje Y: Posicionamiento #ReferenteDigital
   {
     id: "2.1",
     axis: "ecosistema",

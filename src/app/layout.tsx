@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(host ? `https://${host}` : "http://localhost:3000"),
   title: "Descubre tu Nivel de Posicionamiento y Liderazgo Referente | Vivi Morales Villa",
   description:
-    "Diagnóstico gratuito de 4 a 5 minutos: evalúa tu criterio de liderazgo (El SER) y tu visibilidad digital en buscadores e IA (El ECOSISTEMA) con el Método REFERENTE®.",
+    "Diagnóstico gratuito de 4 a 5 minutos: evalúa tu Liderazgo y Criterio (#LiderazgoReferente) y tu Posicionamiento en buscadores e IA (#ReferenteDigital) con el Método REFERENTE®.",
   openGraph: {
     title: "Descubre tu Nivel de Posicionamiento y Liderazgo Referente",
     description: "Diagnóstico gratuito con informe ejecutivo personalizado. Método REFERENTE® por Vivi Morales Villa.",

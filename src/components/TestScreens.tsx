@@ -14,7 +14,7 @@ interface Props {
 }
 
 const TOTAL_SCREENS = Math.ceil(QUESTIONS.length / QUESTIONS_PER_SCREEN);
-const AXIS_LABEL = { ser: "Liderazgo y Criterio", ecosistema: "Ecosistema Digital" } as const;
+const AXIS_LABEL = { ser: "Liderazgo y Criterio", ecosistema: "Posicionamiento" } as const;
 
 export default function TestScreens({ answers, screen, onAnswer, onScreen, onBack, onFinish }: Props) {
   const start = screen * QUESTIONS_PER_SCREEN;
