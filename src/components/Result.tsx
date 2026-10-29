@@ -82,7 +82,6 @@ export default function Result({ lead, result, onRestart }: Props) {
     }
   };
 
-  const nextLink = scores.quadrant === "Experto_Silencioso" || scores.quadrant === "Lider_Referente" ? LINKS.test3 : LINKS.test2;
 
   return (
     <section className="wrap fade-in">
@@ -142,10 +141,13 @@ export default function Result({ lead, result, onRestart }: Props) {
             <p className="eyebrow salvia" style={{ color: "#4d6253" }}>
               Tu siguiente paso
             </p>
-            <h3>{q.siguientePaso}</h3>
-            <p>Profundiza en tu dimensión prioritaria con un diagnóstico detallado y un plan de acción paso a paso.</p>
-            <a className="btn btn-dark" href={nextLink} target="_blank" rel="noopener">
-              Conocer el test →
+            <h3>Profundiza en tu dimensión prioritaria</h3>
+            <p>
+              Concentra tu energía en {brecha.titulo.replace("Prioridad: ", "")}: con un acompañamiento personalizado, este
+              diagnóstico se convierte en un plan de acción concreto para tu siguiente nivel.
+            </p>
+            <a className="btn btn-dark" href={LINKS.agendar} target="_blank" rel="noopener">
+              Agendar sesión estratégica →
             </a>
           </div>
           <div className="panel">
@@ -178,8 +180,8 @@ export default function Result({ lead, result, onRestart }: Props) {
               ))}
             </div>
           </div>
-          <a className="btn btn-ghost" href={LINKS.agendar} target="_blank" rel="noopener">
-            Agendar una sesión estratégica
+          <a className="btn btn-ghost" href={LINKS.programas} target="_blank" rel="noopener">
+            Programas y conferencias
           </a>
         </div>
       </div>
