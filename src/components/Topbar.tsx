@@ -1,0 +1,13 @@
+import { LINKS, SITE_LABEL } from "@/lib/config";
+
+export default function Topbar() {
+  return (
+    <header className="topbar">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="logo" src="/brand/logo-wordmark-blanco.png" alt="Vivi Morales Villa" width={446} height={47} />
+      <a className="site" href={LINKS.sitio} target="_blank" rel="noopener">
+        {SITE_LABEL}
+      </a>
+    </header>
+  );
+}
