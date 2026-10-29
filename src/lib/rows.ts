@@ -9,6 +9,7 @@ export function leadColumns(lead: LeadInput, req: Request, utm: unknown) {
   return {
     nombre: lead.nombre,
     email: lead.email,
+    telefono: `${lead.indicativo} ${lead.telefono}`,
     rol: lead.rol,
     empresa: lead.empresa,
     sector: lead.sector,

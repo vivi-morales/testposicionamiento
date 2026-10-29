@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DESAFIOS, ROLES, SECTORES, TAMANOS, validateLead, type LeadInput } from "@/lib/form-options";
+import { DESAFIOS, INDICATIVOS, ROLES, SECTORES, TAMANOS, isPhone, validateLead, type LeadInput } from "@/lib/form-options";
 import { LINKS } from "@/lib/config";
 
 interface Props {
@@ -20,7 +20,7 @@ const STEPS = [
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function LeadForm({ initial, step, onStep, onSubmit }: Props) {
-  const [lead, setLead] = useState<Partial<LeadInput>>(initial);
+  const [lead, setLead] = useState<Partial<LeadInput>>({ indicativo: "+57", ...initial });
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const [website, setWebsite] = useState("");
@@ -34,6 +34,7 @@ export default function LeadForm({ initial, step, onStep, onSubmit }: Props) {
     if (step === 0) {
       if ((lead.nombre ?? "").trim().length < 2) return "Ingresa tu nombre completo.";
       if (!EMAIL_RE.test((lead.email ?? "").trim())) return "Ingresa un correo electrónico válido.";
+      if (!isPhone((lead.telefono ?? "").replace(/[^\d]/g, ""))) return "Ingresa un número de teléfono válido (solo números, sin indicativo).";
     }
     if (step === 1) {
       if (!lead.rol) return "Selecciona tu perfil o rol.";
@@ -86,6 +87,33 @@ export default function LeadForm({ initial, step, onStep, onSubmit }: Props) {
             <label htmlFor="email">Correo electrónico profesional</label>
             <p className="hint">Te recomendamos ingresar tu correo profesional o corporativo.</p>
             <input id="email" className="input" type="email" inputMode="email" autoComplete="email" value={lead.email ?? ""} onChange={(e) => set("email", e.target.value)} />
+          </div>
+          <div className="field">
+            <label htmlFor="telefono">Teléfono / WhatsApp</label>
+            <div className="phone">
+              <select
+                aria-label="Indicativo del país"
+                className="select"
+                value={lead.indicativo ?? "+57"}
+                onChange={(e) => set("indicativo", e.target.value)}
+              >
+                {INDICATIVOS.map((x) => (
+                  <option key={x.label} value={x.code}>
+                    {x.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                id="telefono"
+                className="input"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel-national"
+                placeholder="300 123 4567"
+                value={lead.telefono ?? ""}
+                onChange={(e) => set("telefono", e.target.value)}
+              />
+            </div>
           </div>
           <div className="hp" aria-hidden>
             <label htmlFor="website">Sitio web</label>

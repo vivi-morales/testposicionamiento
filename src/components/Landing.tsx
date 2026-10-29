@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Topbar from "./Topbar";
 import { EVIDENCIA } from "@/lib/content";
-import { HANDLE, LINKS, SITE_LABEL } from "@/lib/config";
+import { AXES, HANDLE, LINKS, SITE_LABEL } from "@/lib/config";
 
 const QUADS = [
   { n: "01", name: "El Perfil en Desarrollo", text: "Construyendo las bases, con una agenda dominada por lo urgente." },
@@ -59,14 +59,16 @@ export default function Landing({ onStart }: { onStart: () => void }) {
           </p>
           <div className="equation">
             <div className="eq-box">
-              <p className="eyebrow salvia">Eje X · #LiderazgoReferente</p>
-              <h3>Liderazgo Real</h3>
+              <p className="eyebrow salvia">{AXES.x.eje}</p>
+              <h3>{AXES.x.nombre}</h3>
+              <p className="tag">{AXES.x.tag}</p>
               <p>Criterio, presencia ejecutiva, propuesta de valor y capacidad de guiar personas.</p>
             </div>
             <div className="eq-op">+</div>
             <div className="eq-box">
-              <p className="eyebrow salvia">Eje Y · #ReferenteDigital</p>
-              <h3>Visibilidad Estratégica</h3>
+              <p className="eyebrow salvia">{AXES.y.eje}</p>
+              <h3>{AXES.y.nombre}</h3>
+              <p className="tag">{AXES.y.tag}</p>
               <p>Perfiles, método propio, contenido y encontrabilidad en Google e IA.</p>
             </div>
             <div className="eq-op">=</div>
@@ -124,8 +126,8 @@ export default function Landing({ onStart }: { onStart: () => void }) {
 
       <section className="section">
         <div className="wrap about">
-          <img src="/photos/vivi-silla.png" alt="Vivi Morales Villa" width={615} height={1092} />
-          <div style={{ paddingBottom: 24 }}>
+          <img className="about-photo" src="/photos/vivi-silla.png" alt="Vivi Morales Villa" width={615} height={1092} />
+          <div>
             <p className="eyebrow">04 / Quién está detrás</p>
             <h2>Vivi Morales Villa</h2>
             <p className="muted" style={{ margin: "8px 0 20px" }}>

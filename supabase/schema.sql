@@ -10,6 +10,7 @@ create table if not exists public.diagnosticos (
   -- Paso 1: contacto
   nombre            text not null,
   email             text not null,
+  telefono          text,
   -- Paso 2: perfil profesional
   rol               text not null,
   empresa           text not null,
@@ -44,6 +45,9 @@ create table if not exists public.diagnosticos (
   utm               jsonb
 );
 
+-- Si la tabla ya existía antes de agregar el teléfono:
+alter table public.diagnosticos add column if not exists telefono text;
+
 create index if not exists diagnosticos_created_at_idx on public.diagnosticos (created_at desc);
 create index if not exists diagnosticos_email_idx      on public.diagnosticos (email);
 create index if not exists diagnosticos_cuadrante_idx  on public.diagnosticos (tag_cuadrante);
@@ -53,10 +57,11 @@ create index if not exists diagnosticos_cuadrante_idx  on public.diagnosticos (t
 alter table public.diagnosticos enable row level security;
 
 -- Vista práctica para consultar y exportar desde el panel de Supabase.
-create or replace view public.diagnosticos_resumen
+drop view if exists public.diagnosticos_resumen;
+create view public.diagnosticos_resumen
 with (security_invoker = true) as
 select
-  created_at, estado, nombre, email, empresa, sector, tamano,
+  created_at, estado, nombre, email, telefono, empresa, sector, tamano,
   tag_rol, tag_desafio, tag_cuadrante, ser_100, eco_100, total_100,
   siguiente_paso, secuencia_email, propuesta, id
 from public.diagnosticos

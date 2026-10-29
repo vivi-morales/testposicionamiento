@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { QUESTIONS, QUESTIONS_PER_SCREEN, SCALE } from "@/lib/questions";
 import type { Answers } from "@/lib/scoring";
+import { axisLabel } from "@/lib/config";
 
 interface Props {
   answers: Answers;
@@ -58,12 +59,17 @@ export default function TestScreens({ answers, screen, onAnswer, onScreen, onBac
         </span>
       </div>
 
-      {screen === 0 && (
-        <div className="step-head">
-          <h2>Responde según tu realidad de hoy</h2>
-          <p className="muted">No hay respuestas correctas: elige la opción que mejor describe tu comportamiento profesional cotidiano.</p>
-        </div>
-      )}
+      <div className="step-head">
+        <p className="eyebrow">
+          {axisLabel(items[0].axis === "ser" ? "x" : "y")} · Parte {(screen % 2) + 1} de 2
+        </p>
+        {screen === 0 && (
+          <>
+            <h2>Responde según tu realidad de hoy</h2>
+            <p className="muted">No hay respuestas correctas: elige la opción que mejor describe tu comportamiento profesional cotidiano.</p>
+          </>
+        )}
+      </div>
 
       {items.map((q, i) => {
         const n = start + i + 1;

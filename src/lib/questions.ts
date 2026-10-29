@@ -141,4 +141,5 @@ export const QUESTIONS: Question[] = [
   },
 ];
 
-export const QUESTIONS_PER_SCREEN = 4;
+// 5 preguntas por pantalla: cada pantalla contiene preguntas de un solo eje.
+export const QUESTIONS_PER_SCREEN = 5;

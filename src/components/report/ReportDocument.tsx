@@ -242,12 +242,14 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
         <View style={[s.row, { marginTop: 14, alignItems: "stretch" }]}>
           <View style={[s.box, { backgroundColor: C.blanco, flex: 1 }]}>
-            <Text style={{ fontWeight: 700, fontSize: 10.5 }}>Liderazgo Real</Text>
+            <Text style={{ fontSize: 7.5, fontWeight: 600, color: C.salviaOscuro, letterSpacing: 1 }}>{AXES.x.eje.toUpperCase()}</Text>
+            <Text style={{ fontWeight: 700, fontSize: 10.5 }}>{AXES.x.nombre}</Text>
             <Text style={{ fontSize: 9, color: C.gris }}>{AXES.x.tag}</Text>
           </View>
           <Text style={{ fontSize: 20, fontWeight: 300, color: C.salviaOscuro, alignSelf: "center", marginHorizontal: 10 }}>+</Text>
           <View style={[s.box, { backgroundColor: C.blanco, flex: 1 }]}>
-            <Text style={{ fontWeight: 700, fontSize: 10.5 }}>Visibilidad Estratégica</Text>
+            <Text style={{ fontSize: 7.5, fontWeight: 600, color: C.salviaOscuro, letterSpacing: 1 }}>{AXES.y.eje.toUpperCase()}</Text>
+            <Text style={{ fontWeight: 700, fontSize: 10.5 }}>{AXES.y.nombre}</Text>
             <Text style={{ fontSize: 9, color: C.gris }}>{AXES.y.tag}</Text>
           </View>
           <Text style={{ fontSize: 20, fontWeight: 300, color: C.salviaOscuro, alignSelf: "center", marginHorizontal: 10 }}>=</Text>

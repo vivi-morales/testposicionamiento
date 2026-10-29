@@ -8,6 +8,28 @@ export const ROLES = [
   { value: "Profesional_Especialista", label: "Profesional Especialista / Líder de Área" },
 ] as const;
 
+// Indicativos para el campo de teléfono (Colombia por defecto).
+export const INDICATIVOS = [
+  { code: "+57", label: "+57 Colombia" },
+  { code: "+52", label: "+52 México" },
+  { code: "+51", label: "+51 Perú" },
+  { code: "+56", label: "+56 Chile" },
+  { code: "+54", label: "+54 Argentina" },
+  { code: "+593", label: "+593 Ecuador" },
+  { code: "+58", label: "+58 Venezuela" },
+  { code: "+591", label: "+591 Bolivia" },
+  { code: "+595", label: "+595 Paraguay" },
+  { code: "+598", label: "+598 Uruguay" },
+  { code: "+507", label: "+507 Panamá" },
+  { code: "+506", label: "+506 Costa Rica" },
+  { code: "+502", label: "+502 Guatemala" },
+  { code: "+503", label: "+503 El Salvador" },
+  { code: "+504", label: "+504 Honduras" },
+  { code: "+505", label: "+505 Nicaragua" },
+  { code: "+1", label: "+1 EE. UU. / Canadá / Rep. Dominicana / Puerto Rico" },
+  { code: "+34", label: "+34 España" },
+] as const;
+
 export const SECTORES = [
   "Tecnología",
   "Servicios Profesionales / Consultoría",
@@ -64,6 +86,8 @@ export type DesafioValue = (typeof DESAFIOS)[number]["value"];
 export interface LeadInput {
   nombre: string;
   email: string;
+  indicativo: string;
+  telefono: string;
   rol: RolValue;
   empresa: string;
   sector: string;
@@ -77,6 +101,9 @@ export const desafioOf = (v: string) => DESAFIOS.find((d) => d.value === v);
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+/** Número sin indicativo: solo dígitos, entre 7 y 12. */
+export const isPhone = (digits: string) => /^\d{7,12}$/.test(digits);
+
 /** Valida y normaliza los datos del formulario. Devuelve el lead limpio o un mensaje de error. */
 export function validateLead(raw: unknown): { ok: true; lead: LeadInput } | { ok: false; error: string } {
   if (!raw || typeof raw !== "object") return { ok: false, error: "Datos inválidos." };
@@ -86,6 +113,8 @@ export function validateLead(raw: unknown): { ok: true; lead: LeadInput } | { ok
   const lead: LeadInput = {
     nombre: str("nombre", 120),
     email: str("email", 160).toLowerCase(),
+    indicativo: str("indicativo", 6),
+    telefono: str("telefono", 30).replace(/[^\d]/g, ""),
     rol: str("rol") as RolValue,
     empresa: str("empresa", 160),
     sector: str("sector"),
@@ -96,6 +125,8 @@ export function validateLead(raw: unknown): { ok: true; lead: LeadInput } | { ok
 
   if (lead.nombre.length < 2) return { ok: false, error: "Ingresa tu nombre completo." };
   if (!EMAIL_RE.test(lead.email)) return { ok: false, error: "Ingresa un correo electrónico válido." };
+  if (!INDICATIVOS.some((x) => x.code === lead.indicativo)) return { ok: false, error: "Selecciona el indicativo de tu país." };
+  if (!isPhone(lead.telefono)) return { ok: false, error: "Ingresa un número de teléfono válido." };
   if (!ROLES.some((x) => x.value === lead.rol)) return { ok: false, error: "Selecciona tu perfil o rol." };
   if (lead.empresa.length < 2) return { ok: false, error: "Ingresa el nombre de tu empresa o proyecto." };
   if (!(SECTORES as readonly string[]).includes(lead.sector)) return { ok: false, error: "Selecciona tu sector." };
