@@ -238,6 +238,7 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
   .result-grid { grid-template-rows: none; grid-template-areas: "momento" "side" "firma"; }
   .result-footer { margin-top: 24px; padding: 28px 0 0; border-top: 1px solid var(--linea); }
   .result-footer > .btn { margin-left: 0; }
+  .result-footer > .signature { margin: 0; padding: 0; }
   .hero { height: auto; max-height: none; min-height: 0; padding-bottom: 72px; }
   .hero-photo { order: -1; height: auto; max-height: 340px; overflow: hidden; justify-content: center; }
   .hero-photo img { height: auto; max-height: 340px; }
@@ -277,9 +278,11 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 .share-row b { color: var(--menta); font-weight: 600; }
 
 /* Firma al final de la hoja de resultados */
-.result-footer { grid-area: firma; align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding: 28px clamp(22px, 3vw, 32px) 0; }
+.result-footer { grid-area: firma; align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 0 clamp(22px, 3vw, 32px); }
+/* La firma queda centrada verticalmente en el espacio libre, con el mismo margen arriba y abajo */
+.result-footer > .signature { margin: auto 0; padding: 24px 0; }
 /* El botón se alinea con el texto de la firma (después del logo) y con el botón "Programas y conferencias" */
-.result-footer > .btn { margin-top: auto; margin-left: calc(120px + 24px); }
+.result-footer > .btn { margin-left: calc(120px + 24px); }
 .signature { display: flex; align-items: center; gap: 24px; }
 .signature-logo { width: 120px; height: auto; flex: none; }
 .signature-name { color: var(--menta); font-weight: 700; font-size: 20px; margin: 0 0 4px; }
