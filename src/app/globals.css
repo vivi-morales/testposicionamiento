@@ -71,7 +71,7 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 /* Encabezado */
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; gap: 16px; }
 .topbar .logo { height: 26px; width: auto; }
-.topbar .site { font-size: 16px; font-weight: 600; color: var(--blanco); text-decoration: none; }
+.topbar .site { font-size: 20px; font-weight: 600; color: var(--blanco); text-decoration: none; }
 .topbar .site:hover { color: var(--menta); }
 
 /* Hero */
