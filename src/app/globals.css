@@ -83,7 +83,8 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 .hero-meta span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--menta); margin-right: 8px; vertical-align: 1px; }
 .hero-photo { align-self: stretch; position: relative; min-height: 0; display: flex; align-items: flex-end; justify-content: center; padding-top: 8px; }
 .hero-photo img { max-height: 100%; width: auto; object-fit: contain; position: relative; z-index: 2; }
-.watermark { flex: none; display: block; width: calc(100% - 2 * var(--gutter)); max-width: none; margin: 0 auto 18px; opacity: 0.07; pointer-events: none; }
+/* Logo de fondo: completo de lado a lado, semitransparente y por encima de la parte baja de la foto */
+.watermark { position: absolute; left: var(--gutter); bottom: 20px; width: calc(100% - 2 * var(--gutter)); max-width: none; opacity: 0.09; pointer-events: none; z-index: 3; }
 
 /* Secciones */
 .section { padding: clamp(64px, 10vw, 120px) 0; position: relative; }
