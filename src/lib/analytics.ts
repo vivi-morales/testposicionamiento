@@ -1,11 +1,9 @@
-// Google Analytics 4 y Meta Pixel. Los identificadores vienen de variables de entorno de Vercel:
-//   NEXT_PUBLIC_GA_ID          (ej. G-XXXXXXXXXX)
-//   NEXT_PUBLIC_META_PIXEL_ID  (ej. 123456789012345)
-// Si una variable no está definida, esa herramienta simplemente no se carga.
+// Google Analytics 4 y Meta Pixel de vivimoralesvilla.com. Se pueden reemplazar con las
+// variables de entorno NEXT_PUBLIC_GA_ID y NEXT_PUBLIC_META_PIXEL_ID en Vercel.
 // Nunca se envían datos personales (nombre, correo, teléfono).
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
-export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-WS2531HX9S";
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "418270398829122";
 
 type Params = Record<string, string | number>;
 

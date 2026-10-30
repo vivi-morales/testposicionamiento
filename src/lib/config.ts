@@ -5,7 +5,7 @@ export const LINKS = {
   test2: "https://www.vivimoralesvilla.com/#test-liderazgo", // TODO: URL del Test 2 (Liderazgo Referente)
   test3: "https://www.vivimoralesvilla.com/#test-referente-digital", // TODO: URL del Test 3 (Referente Digital)
   agendar: "https://vivimoralesvilla.com/#hablemos",
-  programas: "https://www.vivimoralesvilla.com/#conferencias", // TODO: URL de programas y conferencias
+  programas: "https://vivimoralesvilla.com/#conferencias",
   equipos: "https://vivimoralesvilla.com/#hablemos",
   privacidad: "https://www.vivimoralesvilla.com/#politica-de-datos", // TODO: URL de la Política de Tratamiento de Datos
 };
@@ -26,7 +26,7 @@ export const AXES = {
 export const axisLabel = (a: "x" | "y") => `${AXES[a].eje}: ${AXES[a].nombre} ${AXES[a].tag}`;
 
 /** URL pública del test que se muestra en la tarjeta compartible. */
-export const TEST_URL_LABEL = "www.vivimoralesvilla.com/testposicionamiento";
+export const TEST_URL_LABEL = "test.vivimoralesvilla.com";
 
 /** Duración de la pantalla de procesamiento (ms), aleatoria dentro del rango. */
 export const PROCESSING_MS = { min: 8000, max: 12000 };

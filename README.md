@@ -32,11 +32,9 @@ Columnas de segmentación: `tag_rol`, `tag_cuadrante`, `tag_desafio`, más `sigu
 `secuencia_email` y `propuesta` según la matriz de enrutamiento del Documento 4. También guarda UTM.
 
 ## Google Analytics y Meta Pixel
-En Vercel → **Settings → Environment Variables** agrega (entorno *Production*) y luego haz **Redeploy**:
-- `NEXT_PUBLIC_GA_ID` = ID de medición de GA4 (`G-XXXXXXXXXX`)
-- `NEXT_PUBLIC_META_PIXEL_ID` = ID del píxel de Meta (solo números)
-
-Si una variable no existe, esa herramienta no se carga. Nunca se envían nombre, correo ni teléfono.
+Ya vienen configurados los de vivimoralesvilla.com (GA4 `G-WS2531HX9S` y píxel `418270398829122`,
+en `src/lib/analytics.ts`). Para usar otros, define en Vercel `NEXT_PUBLIC_GA_ID` y
+`NEXT_PUBLIC_META_PIXEL_ID` y haz **Redeploy**. Nunca se envían nombre, correo ni teléfono.
 
 | Momento | Google Analytics | Meta Pixel |
 |---|---|---|
