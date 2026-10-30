@@ -76,8 +76,8 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 
 /* Hero */
 .hero { position: relative; height: 100svh; min-height: 620px; max-height: 960px; display: flex; flex-direction: column; overflow: hidden; }
-.hero-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: 24px; }
-.hero-copy { padding: 32px 0 64px; position: relative; z-index: 2; }
+.hero-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: start; gap: 24px; }
+.hero-copy { padding: clamp(16px, 6vh, 64px) 0 64px; position: relative; z-index: 2; }
 .hero-copy h1 { margin-bottom: 24px; max-width: 16ch; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 28px 0 36px; font-size: 14px; color: var(--texto-suave); }
 .hero-meta span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--menta); margin-right: 8px; vertical-align: 1px; }
