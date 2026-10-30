@@ -73,6 +73,8 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 .topbar .logo { height: 26px; width: auto; }
 .topbar .site { font-size: 20px; font-weight: 600; color: var(--blanco); text-decoration: none; }
 .topbar .site:hover { color: var(--menta); }
+.topbar .logo-link { display: block; flex: none; transition: opacity 0.15s; }
+.topbar .logo-link:hover { opacity: 0.8; }
 
 /* Hero */
 .hero { position: relative; height: 100svh; min-height: 620px; max-height: 960px; display: flex; flex-direction: column; overflow: hidden; }
