@@ -24,11 +24,11 @@ const C = {
 };
 
 const s = StyleSheet.create({
-  page: { fontFamily: "Poppins", fontSize: 10, lineHeight: 1.5, paddingTop: 54, paddingBottom: 78, paddingHorizontal: 50 },
+  page: { fontFamily: "Poppins", fontSize: 10, lineHeight: 1.5, paddingTop: 76, paddingBottom: 78, paddingHorizontal: 50 },
   dark: { backgroundColor: C.carbon, color: C.blanco },
   mint: { backgroundColor: C.menta, color: C.carbon },
   light: { backgroundColor: C.hueso, color: C.carbon },
-  header: { position: "absolute", top: 24, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", fontSize: 7, letterSpacing: 1.4, fontWeight: 600 },
+  header: { position: "absolute", top: 24, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   footer: { position: "absolute", bottom: 22, left: 50, right: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", borderTopWidth: 1, paddingTop: 9 },
   eyebrow: { fontSize: 8, fontWeight: 600, letterSpacing: 1.6, textTransform: "uppercase", marginBottom: 8 },
   h1: { fontSize: 30, fontWeight: 700, lineHeight: 1.12 },
@@ -52,11 +52,16 @@ interface Props {
   origin: string;
 }
 
-function Header({ n, color }: { n: number; color: string }) {
+function Header({ n, color, accent, logo }: { n: number; color: string; accent: string; logo: string }) {
   return (
     <View style={[s.header, { color }]} fixed>
-      <Text>VIVI MORALES VILLA / MÉTODO REFERENTE®</Text>
-      <Text>{String(n).padStart(2, "0")} / 06</Text>
+      <Image src={logo} style={{ width: 150 }} />
+      <View style={{ alignItems: "flex-end" }}>
+        <Link src={LINKS.sitio} style={{ fontSize: 12, fontWeight: 700, color: accent, textDecoration: "none" }}>
+          {SITE_LABEL}
+        </Link>
+        <Text style={{ fontSize: 7, letterSpacing: 1.4, fontWeight: 600, marginTop: 2 }}>{String(n).padStart(2, "0")} / 06</Text>
+      </View>
     </View>
   );
 }
@@ -232,7 +237,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
       {/* Página 2 · Marco metodológico */}
       <Page size="A4" style={[s.page, s.mint]}>
-        <Header n={2} color={C.salviaOscuro} />
+        <Header n={2} color={C.salviaOscuro} accent={C.carbon} logo={img("/brand/logo-wordmark-carbon.png")} />
         <Text style={[s.eyebrow, { color: C.salviaOscuro }]}>Marco metodológico</Text>
         <Text style={s.h2}>Las 2 dimensiones de la autoridad profesional</Text>
         <Text style={[s.p, { width: 440 }]}>
@@ -240,7 +245,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
           de la exposición aleatoria: proviene del equilibrio entre el Liderazgo Real y la Visibilidad Estratégica.
         </Text>
 
-        <View style={[s.row, { marginTop: 14, alignItems: "stretch" }]}>
+        <View style={[s.row, { marginTop: 10, alignItems: "stretch" }]}>
           <View style={[s.box, { backgroundColor: C.blanco, flex: 1 }]}>
             <Text style={{ fontSize: 7.5, fontWeight: 600, color: C.salviaOscuro, letterSpacing: 1 }}>{AXES.x.eje.toUpperCase()}</Text>
             <Text style={{ fontWeight: 700, fontSize: 10.5 }}>{AXES.x.nombre}</Text>
@@ -271,7 +276,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
             d: "Mide la estructura de tu huella digital, la claridad de tu Método propio, la optimización de tus perfiles profesionales y tu nivel de visibilidad en buscadores e Inteligencia Artificial, con base en los 5 Ejes del Posicionamiento Referente.",
           },
         ].map((x) => (
-          <View key={x.n} style={[s.row, { marginTop: 22 }]} wrap={false}>
+          <View key={x.n} style={[s.row, { marginTop: 14 }]} wrap={false}>
             <Text style={[s.numLight, { width: 62, color: C.salviaOscuro }]}>{x.n}</Text>
             <View style={{ flex: 1 }}>
               <Text style={s.h3}>{x.t}</Text>
@@ -280,7 +285,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
           </View>
         ))}
 
-        <View style={[s.box, { backgroundColor: C.blanco, marginTop: 22 }]}>
+        <View style={[s.box, { backgroundColor: C.blanco, marginTop: 14 }]}>
           <Text style={[s.eyebrow, { color: C.salviaOscuro, marginBottom: 4 }]}>Escala de medición</Text>
           <Text>
             Cada eje se evalúa con 10 preguntas y se expresa de 0 a 100 puntos. El punto de corte estratégico (50/100) separa
@@ -288,7 +293,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
           </Text>
         </View>
 
-        <View style={[s.row, { marginTop: 22 }]}>
+        <View style={[s.row, { marginTop: 14 }]}>
           {EVIDENCIA.map((e, i) => (
             <View key={e.cifra} style={[s.box, { backgroundColor: C.carbon, color: C.blanco, flex: 1, marginLeft: i ? 10 : 0 }]}>
               <Text style={{ fontSize: 24, fontWeight: 700, color: C.menta, lineHeight: 1 }}>{e.cifra}</Text>
@@ -302,7 +307,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
       {/* Página 3 · Matriz de Posicionamiento Referente */}
       <Page size="A4" style={[s.page, s.dark]}>
-        <Header n={3} color={C.salvia} />
+        <Header n={3} color={C.salvia} accent={C.blanco} logo={img("/brand/logo-wordmark-blanco.png")} />
         <Text style={[s.eyebrow, { color: C.menta }]}>Visualización del diagnóstico</Text>
         <Text style={s.h2}>Tu ubicación en la Matriz de Posicionamiento Referente</Text>
         <View style={{ alignItems: "center", marginTop: 10, marginBottom: 18 }}>
@@ -325,7 +330,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
       {/* Página 4 · Diagnóstico profundo */}
       <Page size="A4" style={[s.page, s.light]}>
-        <Header n={4} color={C.salvia} />
+        <Header n={4} color={C.salvia} accent={C.carbon} logo={img("/brand/logo-wordmark-carbon.png")} />
         <Text style={[s.eyebrow, { color: C.salvia }]}>
           Diagnóstico profundo · Cuadrante {q.number} · {q.coords}
         </Text>
@@ -356,7 +361,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
       {/* Página 5 · Recomendaciones y ruta */}
       <Page size="A4" style={[s.page, s.dark]}>
-        <Header n={5} color={C.salvia} />
+        <Header n={5} color={C.salvia} accent={C.blanco} logo={img("/brand/logo-wordmark-blanco.png")} />
         <Text style={[s.eyebrow, { color: C.menta }]}>Recomendaciones personalizadas</Text>
         <Text style={s.h2}>Tu ruta de evolución</Text>
 
@@ -413,7 +418,7 @@ export default function ReportDocument({ lead, scores, answers, date, origin }: 
 
       {/* Página 6 · Plan de acción y CTA */}
       <Page size="A4" style={[s.page, s.light]}>
-        <Header n={6} color={C.salvia} />
+        <Header n={6} color={C.salvia} accent={C.carbon} logo={img("/brand/logo-wordmark-carbon.png")} />
         <Text style={[s.eyebrow, { color: C.salvia }]}>Plan de acción</Text>
         <Text style={s.h2}>Tus próximos 3 pasos</Text>
 

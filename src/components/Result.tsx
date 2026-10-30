@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Matrix from "./Matrix";
+import Signature from "./Signature";
 import type { SavedResult } from "./Funnel";
 import type { LeadInput } from "@/lib/form-options";
 import { QUADRANTS, brechaPrioritaria } from "@/lib/content";
@@ -115,9 +116,14 @@ export default function Result({ lead, result, onRestart }: Props) {
             <button className="btn btn-primary" onClick={getPdf} disabled={busy !== ""}>
               {busy === "pdf" ? "Generando tu informe…" : "Descargar mi informe (PDF)"}
             </button>
+          </div>
+          <div className="share-row">
             <button className="btn btn-ghost" onClick={getCard} disabled={busy !== ""}>
               {busy === "card" ? "Creando tarjeta…" : "Compartir mi resultado"}
             </button>
+            <p>
+              Compártelo en tus redes con el hashtag <b>#LiderazgoReferente</b>
+            </p>
           </div>
           <p className="result-note">Tu informe ejecutivo de 6 páginas incluye la lectura completa de tu perfil y tu ruta de evolución.</p>
         </div>
@@ -186,11 +192,12 @@ export default function Result({ lead, result, onRestart }: Props) {
         </div>
       </div>
 
-      <p style={{ marginTop: 48 }}>
-        <button className="restart" onClick={onRestart}>
-          Realizar el test nuevamente
+      <footer className="result-footer">
+        <Signature />
+        <button className="btn btn-ghost" onClick={onRestart}>
+          Volver a realizar el diagnóstico
         </button>
-      </p>
+      </footer>
       {toast && (
         <div className="toast" role="status">
           {toast}

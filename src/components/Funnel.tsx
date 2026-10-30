@@ -141,7 +141,7 @@ export default function Funnel() {
     } catch {
       /* noop */
     }
-    go({ ...INITIAL, stage: "form" });
+    go({ ...INITIAL, stage: "landing" });
   };
 
   if (s.stage === "landing") return <Landing onStart={() => go({ stage: "form" })} />;

@@ -41,7 +41,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
             {cta}
           </div>
           <div className="hero-photo">
-            <img src="/photos/vivi-laptop.png" alt="Vivi Morales Villa" width={538} height={955} />
+            <img src="/photos/vivi-laptop.png" alt="Vivi Morales Villa" width={510} height={785} />
           </div>
         </div>
         <img className="watermark" src="/brand/logo-wordmark-blanco.png" alt="" aria-hidden />
@@ -85,7 +85,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
         <div className="wrap">
           <p className="eyebrow">02 / La evidencia</p>
           <h2>
-            Tu talento necesita <span className="hl">ser visible.</span>
+            Tu talento necesita ser reconocido como <span className="hl">Referente</span>
           </h2>
           <div className="stats">
             {EVIDENCIA.map((e) => (
@@ -126,7 +126,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
 
       <section className="section">
         <div className="wrap about">
-          <img className="about-photo" src="/photos/vivi-silla.png" alt="Vivi Morales Villa" width={615} height={1092} />
+          <img className="about-photo" src="/photos/vivi-camisa.png" alt="Vivi Morales Villa" width={361} height={756} />
           <div>
             <p className="eyebrow">04 / Quién está detrás</p>
             <h2>Vivi Morales Villa</h2>
@@ -139,20 +139,15 @@ export default function Landing({ onStart }: { onStart: () => void }) {
               Colombina y SGS. Ha formado a líderes y empresarios en más de 14 países y es la estratega detrás de la
               reputación digital de reconocidos ejecutivos y LinkedIn Top Voices.
             </p>
-            <img className="monogram" src="/brand/monograma-blanco.png" alt="vmv" width={423} height={121} />
+            <div className="about-cta">
+              <p>
+                Tú y tu experiencia necesitan ser reconocidos como <span className="hl">Referentes.</span>
+              </p>
+              <button className="btn btn-primary" onClick={onStart}>
+                Comenzar diagnóstico <span aria-hidden>→</span>
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="section mint">
-        <div className="wrap narrow cta-final">
-          <h2>Tus resultados necesitan ser visibles. Empieza por saber dónde estás.</h2>
-          <p className="lead" style={{ margin: "16px 0 32px" }}>
-            Responde con honestidad: no hay respuestas correctas, solo tu momento actual.
-          </p>
-          <button className="btn btn-dark" onClick={onStart}>
-            Comenzar mi diagnóstico <span aria-hidden>→</span>
-          </button>
         </div>
       </section>
 

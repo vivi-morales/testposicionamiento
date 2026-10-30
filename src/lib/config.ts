@@ -10,6 +10,12 @@ export const LINKS = {
   privacidad: "https://www.vivimoralesvilla.com/#politica-de-datos", // TODO: URL de la Política de Tratamiento de Datos
 };
 
+/** Redes sociales de Vivi Morales Villa. */
+export const SOCIAL = {
+  instagram: "https://www.instagram.com/vivimoralesvilla/",
+  linkedin: "https://www.linkedin.com/in/vivimoralesvilla/", // TODO: confirmar URL del perfil de LinkedIn
+};
+
 export const SITE_LABEL = "www.vivimoralesvilla.com";
 export const HANDLE = "@vivimoralesvilla";
 /** Nombres oficiales de los ejes de la matriz. */
