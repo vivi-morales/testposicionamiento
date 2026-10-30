@@ -31,6 +31,22 @@ Supabase → **Table Editor** → `diagnosticos` (o la vista `diagnosticos_resum
 Columnas de segmentación: `tag_rol`, `tag_cuadrante`, `tag_desafio`, más `siguiente_paso`,
 `secuencia_email` y `propuesta` según la matriz de enrutamiento del Documento 4. También guarda UTM.
 
+## Google Analytics y Meta Pixel
+En Vercel → **Settings → Environment Variables** agrega (entorno *Production*) y luego haz **Redeploy**:
+- `NEXT_PUBLIC_GA_ID` = ID de medición de GA4 (`G-XXXXXXXXXX`)
+- `NEXT_PUBLIC_META_PIXEL_ID` = ID del píxel de Meta (solo números)
+
+Si una variable no existe, esa herramienta no se carga. Nunca se envían nombre, correo ni teléfono.
+
+| Momento | Google Analytics | Meta Pixel |
+|---|---|---|
+| Cada pantalla (landing, formulario paso 1–3, test pantalla 1–4, procesando, resultado) | `page_view` con ruta virtual (`/formulario/paso-1`, `/test/pantalla-2`, `/resultado`…) | `PageView` |
+| Pulsa "Comenzar" | `inicio_diagnostico` | `InicioDiagnostico` (personalizado) |
+| Envía el formulario | `generate_lead` (rol, sector, desafío) | `Lead` |
+| Termina el test | `test_completado` (cuadrante y puntajes) | `CompleteRegistration` |
+| Descarga el PDF | `descarga_informe` | `DescargaInforme` (personalizado) |
+| Comparte la tarjeta | `compartir_tarjeta` | `CompartirTarjeta` (personalizado) |
+
 ## Personalización rápida
 - **Enlaces de los botones** (Test 2, Test 3, agendar, política de datos…): `src/lib/config.ts`.
 - **Duración del procesamiento**: `PROCESSING_MS` en `src/lib/config.ts`.

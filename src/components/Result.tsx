@@ -7,6 +7,7 @@ import type { SavedResult } from "./Funnel";
 import type { LeadInput } from "@/lib/form-options";
 import { QUADRANTS, brechaPrioritaria } from "@/lib/content";
 import { rankItems } from "@/lib/scoring";
+import { trackEvent } from "@/lib/analytics";
 import { SCALE } from "@/lib/questions";
 
 const scaleOf = (v: number) => SCALE.find((x) => x.value === v);
@@ -52,6 +53,7 @@ export default function Result({ lead, result, onRestart }: Props) {
       const { buildReportPdf } = await import("@/lib/pdf");
       const blob = await buildReportPdf(lead, result);
       download(blob, `Diagnostico-Referente-${slug(lead.nombre)}.pdf`);
+      trackEvent("descarga_informe", "DescargaInforme", { cuadrante: scores.quadrant });
     } catch (e) {
       console.error(e);
       flash("No pudimos generar el PDF. Intenta de nuevo.");
@@ -66,6 +68,7 @@ export default function Result({ lead, result, onRestart }: Props) {
       const { buildShareCard } = await import("@/lib/share-card");
       const blob = await buildShareCard(scores);
       const file = new File([blob], `mi-resultado-referente.png`, { type: "image/png" });
+      trackEvent("compartir_tarjeta", "CompartirTarjeta", { cuadrante: scores.quadrant });
       const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
       if (nav.canShare?.({ files: [file] }) && window.matchMedia("(pointer: coarse)").matches) {
         await navigator

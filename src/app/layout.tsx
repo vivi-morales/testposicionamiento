@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import Tracking from "@/components/Tracking";
 
 const host = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
@@ -22,7 +23,10 @@ export const viewport: Viewport = { themeColor: "#191919" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Tracking />
+      </body>
     </html>
   );
 }

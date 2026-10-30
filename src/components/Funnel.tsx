@@ -10,6 +10,7 @@ import Topbar from "./Topbar";
 import type { LeadInput } from "@/lib/form-options";
 import { computeScores, type Answers, type Scores } from "@/lib/scoring";
 import { PROCESSING_MS } from "@/lib/config";
+import { trackEvent, trackPage } from "@/lib/analytics";
 
 type Stage = "landing" | "form" | "test" | "processing" | "result";
 
@@ -81,6 +82,19 @@ export default function Funnel() {
     }
   }, [s, hydrated]);
 
+  // Cada pantalla del embudo cuenta como una vista de página en Analytics y Meta.
+  useEffect(() => {
+    if (!hydrated) return;
+    const views: Record<Stage, [string, string]> = {
+      landing: ["/", "Landing"],
+      form: [`/formulario/paso-${s.formStep + 1}`, `Formulario · Paso ${s.formStep + 1}`],
+      test: [`/test/pantalla-${s.screen + 1}`, `Test · Pantalla ${s.screen + 1}`],
+      processing: ["/procesando", "Procesando"],
+      result: ["/resultado", "Resultado"],
+    };
+    trackPage(...views[s.stage]);
+  }, [hydrated, s.stage, s.formStep, s.screen]);
+
   const patch = useCallback((p: Partial<State>) => setS((prev) => ({ ...prev, ...p })), []);
 
   const go = useCallback(
@@ -92,6 +106,7 @@ export default function Funnel() {
   );
 
   const submitLead = async (lead: LeadInput, website: string) => {
+    trackEvent("generate_lead", "Lead", { rol: lead.rol, sector: lead.sector, desafio: lead.desafio });
     let leadId: string | null = null;
     try {
       const res = await fetch("/api/diagnosticos", {
@@ -128,11 +143,15 @@ export default function Funnel() {
       return null;
     };
 
-    const [scores] = await Promise.all([save(), wait(duration)]);
-    go({
-      stage: "result",
-      result: { scores: scores ?? computeScores(answers), answers, date: new Date().toISOString() },
+    const [saved] = await Promise.all([save(), wait(duration)]);
+    const scores = saved ?? computeScores(answers);
+    trackEvent("test_completado", "CompleteRegistration", {
+      content_name: scores.quadrant,
+      cuadrante: scores.quadrant,
+      liderazgo: scores.ser,
+      posicionamiento: scores.eco,
     });
+    go({ stage: "result", result: { scores, answers, date: new Date().toISOString() } });
   };
 
   const restart = () => {
@@ -144,7 +163,12 @@ export default function Funnel() {
     go({ ...INITIAL, stage: "landing" });
   };
 
-  if (s.stage === "landing") return <Landing onStart={() => go({ stage: "form" })} />;
+  const start = () => {
+    trackEvent("inicio_diagnostico", "InicioDiagnostico");
+    go({ stage: "form", formStep: 0 });
+  };
+
+  if (s.stage === "landing") return <Landing onStart={start} />;
 
   return (
     <div className="funnel">
