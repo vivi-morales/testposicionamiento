@@ -124,10 +124,10 @@ export default function Landing({ onStart }: { onStart: () => void }) {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section about-section">
         <div className="wrap about">
           <img className="about-photo" src="/photos/vivi-camisa.png" alt="Vivi Morales Villa" width={361} height={756} />
-          <div>
+          <div className="about-text">
             <p className="eyebrow">04 / Quién está detrás</p>
             <h2>Vivi Morales Villa</h2>
             <p className="muted" style={{ margin: "8px 0 20px" }}>

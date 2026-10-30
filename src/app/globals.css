@@ -40,7 +40,7 @@ a { color: inherit; }
 button { font: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
 
-.wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); }
+.wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
 .narrow { max-width: 760px; }
 
 /* Tipografía */
@@ -76,13 +76,14 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 
 /* Hero */
 .hero { position: relative; height: 100svh; min-height: 620px; max-height: 960px; display: flex; flex-direction: column; overflow: hidden; }
-.hero-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: start; gap: 24px; }
-.hero-copy { padding: clamp(16px, 6vh, 64px) 0 64px; position: relative; z-index: 2; }
+.hero-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(min(620px, 55%), 1fr) auto; align-items: stretch; gap: 24px; }
+.hero-copy { align-self: start; padding: clamp(16px, 6vh, 64px) 0 64px; position: relative; z-index: 2; }
 .hero-copy h1 { margin-bottom: 24px; max-width: 16ch; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 28px 0 36px; font-size: 14px; color: var(--texto-suave); }
 .hero-meta span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--menta); margin-right: 8px; vertical-align: 1px; }
-.hero-photo { align-self: stretch; position: relative; min-height: 0; display: flex; align-items: flex-end; justify-content: center; padding-top: 8px; }
-.hero-photo img { max-height: 100%; width: auto; object-fit: contain; position: relative; z-index: 2; }
+/* La foto ocupa todo el alto disponible y se apoya en el borde inferior de la sección */
+.hero-photo { position: relative; min-height: 0; height: 100%; display: flex; align-items: flex-end; justify-content: flex-end; }
+.hero-photo img { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: right bottom; position: relative; z-index: 2; }
 /* Logo de fondo: completo de lado a lado, semitransparente y por encima de la parte baja de la foto */
 .watermark { position: absolute; left: var(--gutter); bottom: 20px; width: calc(100% - 2 * var(--gutter)); max-width: none; opacity: 0.09; pointer-events: none; z-index: 3; }
 
@@ -117,8 +118,11 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 .quad h3 { margin: 6px 0 6px; }
 .quad p { margin: 0; font-size: 14px; color: #4a4a4a; }
 
-.about { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
-.about .about-photo { width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
+/* Sección 04: la foto se apoya en el borde inferior, sin espacio negro debajo */
+.section.about-section { padding: clamp(48px, 6vw, 80px) 0 0; }
+.about { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 72px); align-items: end; }
+.about .about-photo { width: 100%; max-width: 380px; height: auto; margin: 0 auto; }
+.about-text { align-self: center; padding-bottom: clamp(32px, 5vw, 64px); }
 .about-cta { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--linea); }
 .about-cta p { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; line-height: 1.35; margin: 0 0 20px; }
 
@@ -229,14 +233,15 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 @media (max-width: 900px) {
   .hero-grid, .split, .about, .result-hero, .result-grid { grid-template-columns: 1fr; }
   .hero { height: auto; max-height: none; min-height: 0; padding-bottom: 72px; }
-  .hero-photo { order: -1; height: auto; max-height: 340px; overflow: hidden; }
-  .hero-photo img { max-height: 340px; }
+  .hero-photo { order: -1; height: auto; max-height: 340px; overflow: hidden; justify-content: center; }
+  .hero-photo img { height: auto; max-height: 340px; }
   .hero-copy { padding-top: 0; }
   .hero-copy h1 { max-width: none; }
   .equation { grid-template-columns: 1fr; }
   .eq-op { justify-self: center; }
   .stats { grid-template-columns: 1fr; }
-  .about .about-photo { max-width: 240px; }
+  .about .about-photo { max-width: 260px; }
+  .about-text { order: -1; padding-bottom: 0; }
 }
 @media (max-width: 560px) {
   .topbar .logo { height: 18px; }
