@@ -20,6 +20,11 @@ Cada diagnóstico se guarda en Supabase (tabla `diagnosticos`).
    - `SUPABASE_SERVICE_ROLE_KEY` = la clave service_role
 3. **Deploy**.
 
+### Verificar la conexión
+Abre `https://<tu-sitio>/api/estado`. Debe decir `"conexion": "OK…"` y una clave de tipo
+`secret (nueva)` o `service_role (legacy)`. Si muestra `ERROR` o una clave incorrecta, corrige la
+variable en Vercel y haz **Redeploy**. Esta página no muestra claves ni datos.
+
 ### 3. Consultar los datos
 Supabase → **Table Editor** → `diagnosticos` (o la vista `diagnosticos_resumen`). Botón **Export → CSV**.
 
