@@ -12,7 +12,10 @@ export async function GET() {
   };
   try {
     await ping();
-    estado.conexion = "OK: el sitio se conecta a la tabla diagnosticos";
+    const kind = estado.SUPABASE_SERVICE_ROLE_KEY;
+    estado.conexion = kind.startsWith("secret") || kind.startsWith("service_role")
+      ? "OK: el sitio se conecta y puede guardar en la tabla diagnosticos"
+      : "ATENCIÓN: hay conexión, pero con esta clave NO se pueden guardar registros. Usa la clave secreta (sb_secret_…) o service_role.";
   } catch (err) {
     estado.conexion = `ERROR: ${(err as Error).message.slice(0, 300)}`;
   }
