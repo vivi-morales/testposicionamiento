@@ -133,7 +133,7 @@ export default function Result({ lead, result, onRestart }: Props) {
       </div>
 
       <div className="result-grid">
-        <div className="panel">
+        <div className="panel result-momento">
           <p className="eyebrow">Tu momento actual</p>
           <h3>{q.coords}</h3>
           <p className="muted">{q.estado}</p>
@@ -142,7 +142,7 @@ export default function Result({ lead, result, onRestart }: Props) {
           </p>
           <p className="muted">{brecha.texto}</p>
         </div>
-        <div style={{ display: "grid", gap: 20, alignContent: "start" }}>
+        <div className="result-side">
           <div className="panel mint">
             <p className="eyebrow salvia" style={{ color: "#4d6253" }}>
               Tu siguiente paso
@@ -190,14 +190,14 @@ export default function Result({ lead, result, onRestart }: Props) {
             Programas y conferencias
           </a>
         </div>
-      </div>
 
-      <footer className="result-footer">
-        <Signature />
-        <button className="btn btn-ghost" onClick={onRestart}>
-          Volver a realizar el diagnóstico
-        </button>
-      </footer>
+        <footer className="result-footer">
+          <Signature />
+          <button className="btn btn-ghost" onClick={onRestart}>
+            Volver a realizar el diagnóstico
+          </button>
+        </footer>
+      </div>
       {toast && (
         <div className="toast" role="status">
           {toast}
