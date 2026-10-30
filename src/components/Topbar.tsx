@@ -6,7 +6,8 @@ export default function Topbar() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="logo" src="/brand/logo-wordmark-blanco.png" alt="Vivi Morales Villa" width={446} height={47} />
       <a className="site" href={LINKS.sitio} target="_blank" rel="noopener">
-        {SITE_LABEL}
+        <span className="www">www.</span>
+        {SITE_LABEL.replace(/^www\./, "")}
       </a>
     </header>
   );

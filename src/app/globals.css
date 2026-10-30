@@ -70,8 +70,9 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
 
 /* Encabezado */
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; gap: 16px; }
-.topbar .logo { height: 18px; width: auto; }
-.topbar .site { font-size: 13px; color: var(--texto-suave); text-decoration: none; }
+.topbar .logo { height: 26px; width: auto; }
+.topbar .site { font-size: 16px; font-weight: 600; color: var(--blanco); text-decoration: none; }
+.topbar .site:hover { color: var(--menta); }
 
 /* Hero */
 .hero { position: relative; height: 100svh; min-height: 620px; max-height: 960px; display: flex; flex-direction: column; overflow: hidden; }
@@ -237,6 +238,9 @@ h3 { font-size: clamp(19px, 2.2vw, 22px); }
   .about .about-photo { max-width: 240px; }
 }
 @media (max-width: 560px) {
+  .topbar .logo { height: 18px; }
+  .topbar .site { font-size: 13px; white-space: nowrap; }
+  .topbar .www { display: none; }
   .quads { grid-template-columns: 1fr; }
   .scale { grid-template-columns: 1fr 1fr; }
   .actions { flex-direction: column-reverse; align-items: stretch; }
